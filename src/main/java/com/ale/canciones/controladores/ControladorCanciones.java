@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.ale.canciones.servicios.ServicioCanciones;
 import com.ale.canciones.modelos.Cancion;
+//nuevos:
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 @Controller
 public class ControladorCanciones{
 
@@ -28,5 +34,27 @@ public class ControladorCanciones{
         modelo.addAttribute("cancion",cancion);
         return "detalleCancion.jsp";
     }
+    //formularioAgregarCancion()
+    @GetMapping("/canciones/formulario/agregar")
+    public String formularioAgregarCancion(@ModelAttribute("cancion") Cancion cancion) {
+        return "agregarCancion.jsp";
+    }
+    //procesarAgregarCancion():
+    @PostMapping("/canciones/procesa/agregar")
+    public String procesarAgregarCancion(
+        @Valid @ModelAttribute("cancion") Cancion cancion,
+        BindingResult validaciones) 
+    {
+
+    if(validaciones.hasErrors()){
+        return "agregarCancion.jsp";
+    }
+
+    servicioCanciones.agregarCancion(cancion);
+
+        return "redirect:/canciones";
+    }
+
+
 
 }

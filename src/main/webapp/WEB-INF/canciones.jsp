@@ -45,6 +45,11 @@
         </tbody>
         
     </table>
+
+    <p style="text-align:right; margin-bottom: 10px;">
+    <a class="btn" href="/canciones/formulario/agregar">Agregar nueva canción</a>
+
+    </p>
 </div>
 </body>
 </html>
