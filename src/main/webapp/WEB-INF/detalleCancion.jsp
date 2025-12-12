@@ -13,11 +13,18 @@
 
 <body>
 <div class="contenedor">
-    <h1>${cancion.titulo}</h1>
+    <h1>Detalle de la canción</h1>
     
 
     <div class="detalle_cancion">
-        <p>Artista: ${cancion.artista}</p>
+        <p>Título: ${cancion.titulo}</p>
+        <p>Artista: ${cancion.artista.nombre}
+            <c:choose>
+                <c:when test="${empty cancion.artista}">(Sin artista asignado)</c:when>
+                <c:otherwise>${cancion.artista.nombre} ${cancion.artista.apellido}</c:otherwise>
+            </c:choose>
+        </p>
+        
         <p>Álbum: ${cancion.album}</p>
         <p>Género: ${cancion.genero}</p>
         <p>Idioma: ${cancion.idioma}</p>
@@ -25,26 +32,24 @@
         <p>Actualizada: ${cancion.fechaActualizacion}</p>
         
     </div>
-    <%--agrega un botón para actualizar la canción.--%>
-    <p style="margin-top: 20px;">
+    
+    <div style="margin-top: 15px;">
         <a class="btn" href="${pageContext.request.contextPath}/canciones/formulario/editar/${cancion.id}">Editar la canción</a>
-    </p>
+    </div>
+
+    
+
+    <c:if test="${not empty cancion.id}">
+        <form action="${pageContext.request.contextPath}/canciones/eliminar/${cancion.id}" method="POST">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <button type="submit" class="btn">Eliminar canción</button>
+        </form>
+    </c:if>
 
     <p style="margin-top:15px;">
         <a href="${pageContext.request.contextPath}/canciones">Volver a lista de canciones</a>
     </p>
 
-    <form action="${pageContext.request.contextPath}/canciones/eliminar/${cancion.id}"
-        method="POST"
-        style="margin-top:15px;"
-        onsubmit="return confirm('¿Quieres eliminar esta canción?');">
-
-        <input type="hidden" name="_method" value="DELETE"/>
-        <button type="submit" class="btn">Eliminar canción</button>
-    </form>
-
-
-    
 </div>
 </body>
 </html>

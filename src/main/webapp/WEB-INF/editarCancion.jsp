@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isErrorPage="true" %>
 
 <!DOCTYPE html>
@@ -23,16 +24,23 @@
         <input type="hidden" name="_method" value="PUT"/>
 
         <div class="form-grupo">
+            <form:label path="artista.id">Artista:</form:label>
+            <form:select path="artista.id">
+                <form:option value="" label="Selecciona un artista"/>
+                <c:forEach var="a" items="${listaArtistas}">
+                    <form:option value="${a.id}">${a.nombre} ${a.apellido}</form:option>
+                </c:forEach>
+            </form:select>
+            <form:errors path="artista" cssClass="error"/>
+        </div>
+
+        <div class="form-grupo">
             <label for="titulo">Título:</label>
             <form:input path="titulo" id="titulo" />
             <form:errors path="titulo" cssClass="error"/>
         </div>
 
-        <div class="form-grupo">
-            <label for="artista">Artista:</label>
-            <form:input path="artista" id="artista"/>
-            <form:errors path="artista" cssClass="error"/>
-        </div>
+
 
         <div class="form-grupo">
             <label for="album">Álbum:</label>

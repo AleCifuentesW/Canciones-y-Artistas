@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Agregar Canción</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
+
 <body>
 <div class="contenedor">
     <h1>Agregar Canción</h1>
@@ -15,16 +19,22 @@
     <form:form action="${pageContext.request.contextPath}/canciones/procesa/agregar" method="POST" modelAttribute="cancion">
     
     <div class="form-grupo">
+        <form:label path="artista">Artista:</form:label>
+        <form:select path="artista.id">
+            <form:option value="" label="Selecciona un artista"/>
+            <c:forEach var="a" items="${listaArtistas}">
+                <form:option value="${a.id}">${a.nombre} ${a.apellido}</form:option>
+            </c:forEach>
+        </form:select>
+        <form:errors path="artista" cssClass="error"/>
+    </div>
+
+    <div class="form-grupo">
         <label for="titulo">Título:</label>
         <form:input path="titulo" id="titulo"/>
         <form:errors path="titulo" cssClass="error"/>
     </div>
 
-    <div class="form-grupo">
-        <label for="artista">Artista:</label>
-        <form:input path="artista" id="artista"/>
-        <form:errors path="artista" cssClass="error"/>
-    </div>
 
     <div class="form-grupo">
         <label for="album">Álbum:</label>

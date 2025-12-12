@@ -1,55 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-<meta charset="UTF-8">
-<title>Canciones</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-</head>
+    <meta charset="UTF-8">
+    <title>Canciones</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
 <body>
 <div class="contenedor">
-    <h1>Canciones</h1>
-    
-    <table class="tabla_canciones">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Artista</th>
-                <th>Álbum</th>
-                <th>Género</th>
-                <th>Idioma</th>
-                <th>Detalle</th>
-            </tr>
-        </thead>
+    <h1>Lista de Canciones</h1>
+    <c:if test="${empty listaCanciones}">
+        <p>No hay canciones registradas todavía.</p>
+    </c:if>
 
-        <tbody>
-            <c:forEach var="cancion" items="${listaCanciones}">
-                <tr>
-                    <td>${cancion.titulo}</td>
-                    <td>${cancion.artista}</td>
-                    <td>${cancion.album}</td>
-                    <td>${cancion.genero}</td>
-                    <td>${cancion.idioma}</td>
-                    <td>
-                        <a class="link_detalle" href="${pageContext.request.contextPath}/canciones/detalle/${cancion.id}">Detalle</a>
+    <ul>
+        <c:forEach var="cancion" items="${listaCanciones}">
+            <li>
+                <a href="${pageContext.request.contextPath}/canciones/detalle/${cancion.id}">
+                    ${cancion.titulo}
+                </a>
+            </li>
+        </c:forEach>
+    </ul>
 
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-        
-    </table>
+    <a class="btn" href="${pageContext.request.contextPath}/canciones/formulario/agregar">Agregar canción</a>
 
-    <p style="text-align:right; margin-bottom: 10px;">
-    <a class="btn" href="${pageContext.request.contextPath}/canciones/formulario/agregar">Agregar nueva canción</a>
+    <a class="btn" href="${pageContext.request.contextPath}/artistas">Ir a artistas</a>
 
-    </p>
 </div>
 </body>
 </html>
